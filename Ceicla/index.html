@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEICLA</title>
+    <link rel="shortcut icon" href="./assets/img/cicla-removebg-preview.png" type="image/x-icon">
+    <link rel="icon" href="./assets/img/cicla-removebg-preview.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styleindex.css">
+</head>
+<body >
+    
+    <!-- header -->
+    <header>
+        <!-- img -->
+        <a href="./index.html"> <img src="./assets/img/cicla-removebg-preview.png" alt="" id="icono"></a>
+        <!-- navbar -->
+        <div class="navbar">
+            <a class="active" href="./index.html">Idiomas</a>
+            <a href="./assets/pages/curso.html">Curso</a>
+            <a href="./assets/pages/examenes.html">Exámenes</a>
+            <div class="navbar-right">
+                <a href="./assets/pages/iniciarsesion.html">Iniciar Sesión</a>
+            </div>
+        </div>
+    </header>
+       <!-- Mensaje si es administrador -->
+      
+       <div id="Esadmin"  class="BtnAdmi" style="display: none;">
+        <div id="admin-message" style="display: none;"></div>
+        <h3>Usted ingreso como administrador</h3>
+        <a href="./assets/pages/curso.html" >Administrar</a>
+    </div>
+      </div>
+<!--Seccion de bienvenida-->
+<div class="welcome-section" >
+    <h1>!Bienvenido a CEICLA¡</h1>
+    <h3>Nos da gusto acompañarte en esta etapa</h3>
+    <button class="start-button" onclick=" window.location.href='./assets/pages/idiomas.html';">Comenzar</button>
+</div>
+
+    <footer>
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="#">Términos de Uso</a></li>
+                <li><a href="#">Ayuda</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+    </footer>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
