@@ -1,14 +1,18 @@
-const esAdmin = false; // Simulación de sesión de administrador
-const EsUser=true;
+/*
+const EsUser= true;
+*/
 let Esadmin = document.getElementById('Esadmin');
 let cursosUser= document.getElementById('Cursos-User');
-if(esAdmin){
+let cursosprofesor = document.getElementById("cursosprofesor");
+
+if(localStorage.getItem("admin")){ // aqui toma lo que esta en el local storage 
     Esadmin.style.display='block';
-cursosUser.style.display='none';
+    cursosUser.style.display='none';
+    cursosprofesor.style.display='none';
 }else{
     Esadmin.style.display='none';
-
-cursosUser.style.display='block';
+    cursosUser.style.display='block';
+    cursosprofesor.style.display='none';
 }
 
 
@@ -98,9 +102,15 @@ function addProfesor() {
 
         profesores.push(nuevoProfesor);
         mostrarProfesores();
+        localStorage.setItem("profes", JSON.stringify(profesores))
         document.getElementById('profesor-form').reset(); // Limpiar el formulario
     } else {
         alert("Por favor, complete todos los campos.");
+        Swal.fire({
+            title: "Datos Incompletos",
+            text: "Por favor, complete todos los campos",
+            icon: "warning"
+        }) 
     }
 }
 
@@ -173,41 +183,55 @@ function mostrarDetalles(idioma, nivel, periodo, certificado, costo) {
 
 //----------------------------------------------------------vista del profesor:
 // Variable para mantener el estado de la sección
-let detallesVisible = false;
+if(localStorage.getItem("profesor")){
+        const detaProfesor = document.getElementById('DetaProfesor');
+        let detallesVisible = document.getElementById('detallesVisibles');
+        cursosprofesor.style.display='block';
+        cursosUser.style.display='none';
+        Esadmin.style.display = 'none';
+        console.log("detalles:" + detallesVisible);
 
-// Mostrar detalles del curso seleccionado y el formulario de subida de material
-function DetallesProfesor(idioma, nivel) {
-    detallesVisible = !detallesVisible; // Alterna el estado de visibilidad
-    const detaProfesor = document.getElementById('DetaProfesor');
-    
-    // Si está visible, oculta; si no, muestra y completa la información
-    if (detallesVisible) {
-        detaProfesor.style.display = 'block';
-        document.getElementById('idioma').textContent = idioma;
-        document.getElementById('nivel').textContent = nivel;
-    } else {
-        detaProfesor.style.display = 'none'; // Ocultar detalles
+    // Mostrar detalles del curso seleccionado y el formulario de subida de material
+    function DetallesProfesor(idioma, nivel) {
+        // Si está visible, oculta; si no, muestra y completa la información
+        if (detallesVisible) {
+            detaProfesor.style.display = 'block';
+            document.getElementById('idioma').textContent = idioma;
+            document.getElementById('nivel').textContent = nivel;
+        } else {
+            detaProfesor.style.display = 'none'; // Ocultar detalles
+        }
     }
-}
 
-// Función para manejar la subida del material
-function subirMaterial() {
-    const titulo = document.getElementById('titulo').value;
-    const contenido = document.getElementById('contenido').files[0];
-    
-    if (titulo && contenido) {
-        // Lógica para subir el material (puedes manejarlo con un backend, API, etc.)
-        alert('Material subido: ' + titulo);
-        // Opcional: Limpiar el formulario después de la subida
-        document.getElementById('titulo').value = '';
-        document.getElementById('contenido').value = '';
-    } else {
-        alert('Por favor, completa el título y selecciona un archivo.');
+    // Función para manejar la subida del material
+    function subirMaterial() {
+        const titulo = document.getElementById('titulo').value;
+        const contenido = document.getElementById('contenido').files[0];
+        
+        if (titulo && contenido) {
+            // Lógica para subir el material (puedes manejarlo con un backend, API, etc.)
+            alert('Material subido: ' + titulo);
+            // Opcional: Limpiar el formulario después de la subida
+            document.getElementById('titulo').value = '';
+            document.getElementById('contenido').value = '';
+        } else {
+            alert('Por favor, completa el título y selecciona un archivo.');
+        }
     }
-}
 
-// Función para ocultar detalles manualmente
-function ocultarDetalles() {
-    document.getElementById('DetaProfesor').style.display = 'none';
-    detallesVisible = false; // Actualiza el estado a oculto
+    // Función para ocultar detalles manualmente
+    function ocultarDetalles() {
+        document.getElementById('DetaProfesor').style.display = 'none';
+        detallesVisible = false; // Actualiza el estado a oculto
+    }
+
+    let btnDetallesVisibles = document.getElementById("detallesVisibles");
+    btnDetallesVisibles.onclick= (e) => {
+        e.preventDefault();
+        DetallesProfesor(idioma,nivel);
+    }
+
+}else{
+    cursosprofesor.style.display='none';
+    cursosUser.style.display='block';
 }

@@ -109,3 +109,29 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+button{
+    text-align: center;
+}
+.btn {
+    text-align: center;
+    width: 95%;
+    margin-bottom: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-family: 'Poppins', sans-serif; /* Fuente personalizada para el botón */
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Cambia el color cuando el cursor pasa por encima */
+}
+
+.btn:active {
+    background-color: #004080; /* Cambia el color cuando el botón es presionado */
+    transform: scale(0.98); /* Hace que el botón se haga un poco más pequeño al ser presionado */
+}

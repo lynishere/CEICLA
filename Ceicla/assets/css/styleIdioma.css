@@ -54,6 +54,44 @@ header {
     color: white;
     border-radius: 50px;
 }
+/*----------------------------------------------------parte del administrador-----------------------------*/
+.Contanier-Admi{
+    background-color: #666;
+    height: 400px;
+    text-align: center;
+    width: 100%;
+    }
+    
+    .mensaje-admi h3{
+        margin-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 34px;
+    color:aliceblue;
+    }
+    .BtnAdmi{
+        border-color: #666;
+    background-color: #007bff ;
+    width:  auto;
+    height: 40px;
+    color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        font-family: 'Poppins', sans-serif;
+    }
+    .BtnAdmi a{
+        text-decoration: none;
+        color: #ddd;
+        font-size: 25px;
+    }
+    .BtnAdmi:hover{
+        background-color: #004080;
+    }
+    .BtnAdmi:active {
+        background-color: #004080; /* Cambia el color cuando el botón es presionado */
+        transform: scale(0.98); /* Hace que el botón se haga un poco más pequeño al ser presionado */
+    }
 /*-------------------------------------------------- Footer ------------------------------------------------------------*/
 footer {
     width: 100%;
@@ -88,7 +126,3 @@ footer {
 .footer-links a:hover {
     text-decoration: underline; /* Subraya al pasar el ratón */
 }
-/*-----------------------------admi----------------------*/
-.BtnAdmi{
-    text-align: center;
-    }

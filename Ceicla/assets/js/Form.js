@@ -7,39 +7,168 @@
    const registerRole = document.getElementById('registerRole');
    const dniAlumnoField = document.getElementById('dniAlumnoField');
    //maneja administrador
-   class Sesion {
-    constructor(gmail, contrasena) {
-        this.gmail = gmail;
-        this.contrasena = contrasena;
+    class Sesion {
+        constructor(usuario, contrasena) {
+            this.usuario = usuario;
+            this.contrasena = contrasena;
+        }
     }
-  }
-  
-  let listaSesiones = [];
-  
-//funcion del administrador inicio sesion
-function Formulario() {
-    let gmail = document.getElementById("loginEmail").value;
-    let contrasena = document.getElementById("loginPassword").value;
-  
-    if (gmail == "" || contrasena == "") {
-        Swal.fire("Faltan datos");
-    }
-  
-    if (gmail == "Admin@gmail.com" && contrasena == "1234") { // no lo toma ver que onda
-      Swal.fire("Bienvenido Administrador", "", "success");
-        let login = new Sesion(gmail, contrasena);
-        listaSesiones.push(login);
-        guardar();
-        localStorage.setItem("admin", JSON.stringify(listaSesiones));
-    }
-  }
 
-  let botonSesion = document.getElementById("btnInicio");
-botonSesion.onclick = (e) => {
-  e.preventDefault();
-  Formulario();
-}
+    class Registro {
+        constructor(nombre, apellido, tipo, dni_alumno, dni, correo_electronico, contraseña){
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.tipo = tipo;
+            this.dni_alumno = dni_alumno;
+            this.dni = dni;
+            this.correo_electronico = correo_electronico;
+            this.contraseña = contraseña;
+        }
+    }
+    let listaAdmin = [];
+    let listaProfe = [];
+    let listaAlumno = [];
+    let listaTutor = [];
+    let listaRegistro = [];
 
+    function Formulario() {
+        let usuario = document.getElementById("loginEmail").value;
+        let contrasena = document.getElementById("loginPassword").value;
+
+        if (usuario == "" || contrasena == "") {
+            Swal.fire({
+                title: "Datos faltantes",
+                text: "Ingrese todos los datos correspondientes",
+                icon: "warning"
+            })
+        }else if (usuario == "Admin@gmail.com" && contrasena == "1234") {
+            Swal.fire({
+                title: "Bienvenido admin",
+                text: "¿En que lo vamos a trabajar hoy?",
+                icon: "success"
+            })
+            let login = new Sesion(usuario, contrasena);
+            listaAdmin.push(login);
+            localStorage.setItem("admin", JSON.stringify(listaAdmin));
+        }else if(localStorage.getItem("profes")){ 
+            Swal.fire({
+                title: "Bienvenido profesor",
+                text: "¿A quien desaprobamos hoy?",
+                icon: "success"
+            })            
+            let login = new Sesion(usuario, contrasena);
+            listaProfe.push(login);
+            localStorage.setItem("profesor", JSON.stringify(listaProfe));
+        }else if(usuario.includes("@alum.ceicla") && localStorage.getItem("registro_alumno")){
+            Swal.fire({
+                title: "Bienvenido alumno",
+                text: "¿Preparados para aprender?",
+                icon: "success"
+            })            
+            let login = new Sesion(usuario, contrasena);
+            listaAlumno.push(login);
+            localStorage.setItem("alumno", JSON.stringify(listaAlumno));
+        }else if(localStorage.getItem("registro_tutor")){
+            Swal.fire({
+                title: "Bienvenido tutor",
+                text: "¿Hacemos una visita?",
+                icon: "success"
+            })
+            let login = new Sesion(usuario, contrasena);
+            listaAlumno.push(login);
+            localStorage.setItem("tutor", JSON.stringify(listaTutor));
+        }else{
+            Swal.fire({
+                title: "Cuenta no registada",
+                text: "Registrese para inicar sesion",
+                icon: "warning"
+            })        
+        }
+    }
+
+    function Cerrar(){
+        localStorage.removeItem("alumno");
+        localStorage.removeItem("tutor");
+        localStorage.removeItem("profesor");
+        localStorage.removeItem("admin");
+        Swal.fire({
+            title: "Sesiones cerradas",
+            text: "Cuentas borradas de forma exitosas",
+            icon: "success"
+        })
+    }
+
+    function Eliminar(){
+        localStorage.removeItem("registro_alumno");
+        localStorage.removeItem("registro_tutor");
+        Swal.fire({
+            title: "Cuentas eliminadas",
+            text: "Cuentas borradas de forma exitosas",
+            icon: "success"
+        })
+    }
+
+    let btnInicio = document.getElementById("btnInicio");
+    btnInicio.onclick = (e) => {
+        e.preventDefault();
+        Formulario();
+    }
+
+    let btnCerrar = document.getElementById("btnCerrar");
+    btnCerrar.onclick = (e) =>{
+        e.preventDefault();
+        Cerrar();
+    }
+
+    let btnEliminar = document.getElementById("btnEliminar");
+    btnEliminar.onclick = (e) =>{
+        e.preventDefault();
+        Eliminar();
+    }
+
+    function Registrarse(){
+        let nombre = document.getElementById("registerName").value;
+        let apellido = document.getElementById("registerSurname").value;
+        let tipo = document.getElementById("registerRole").value;
+        let dni_alumno = document.getElementById("dniAlumno").value
+        let dni = document.getElementById("registerDni").value;
+        let correo_electronico = document.getElementById("registerEmail").value;
+        let contraseña = document.getElementById("registerPassword").value;
+
+        if(nombre == "" || apellido == "" || tipo == "" ||  dni == "" || correo_electronico == "" || contraseña == ""){
+            Swal.fire({
+                title: "Datos faltantes",
+                text: "Ingrese todos los datos correspondientes",
+                icon: "warning"
+            })             
+        }else{
+            if(tipo == "alumno"){
+                Swal.fire({
+                    title: "Registro como alumno completo",
+                    text: "Bienvenido a nuestro sistema",
+                    icon: "success"
+                })                
+                let login = new Registro(nombre, apellido, tipo, dni, dni_alumno, correo_electronico, contraseña);
+                listaRegistro.push(login);
+                localStorage.setItem("registro_alumno", JSON.stringify(listaRegistro));
+            }else{
+                Swal.fire({
+                    title: "Registro como tutor completado",
+                    text: "Bienvenido a nuestro sistema",
+                    icon: "success"
+                })  
+                let login = new Registro(nombre, apellido, tipo, dni, dni_alumno, correo_electronico, contraseña);
+                listaRegistro.push(login);
+                localStorage.setItem("registro_tutor", JSON.stringify(listaRegistro));
+            }
+        }
+    }
+
+    let btnRegistrarse = document.getElementById("btnRegistrarse");
+    btnRegistrarse.onclick = (e) =>{
+        e.preventDefault();
+        Registrarse();
+    }
 //Funcionalidad del registro de usuario
 
    registerLink.addEventListener('click', function(event) {
@@ -71,17 +200,11 @@ registerForm.addEventListener('submit', function(event) {
     const role = document.getElementById('registerRole').value;
     
     if (role === 'tutor') {
+    
         // Redirigir a la página de detalles del alumno (tutor.html)
-        window.location.href = './tutor.html';
+        window.location.href = './pages/tutor.html';
     } else {
         // Aquí puedes procesar el registro del alumno si no es tutor
         alert('Registro completado como Alumno.');
     }
 });
-
-
-
-
-
-// localstorage
-localStorage.getItem("admin");

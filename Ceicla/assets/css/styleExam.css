@@ -106,7 +106,7 @@ align-items: center;
 .btn{
     background-color: cornflowerblue;
 }
-.btn hover{
+.btn:hover{
     background-color: blue;
     color:white;
 }
